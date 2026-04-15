@@ -3,7 +3,8 @@
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
--- require("mason").setup()
+
+require("mason").setup()
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
@@ -13,10 +14,20 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
+    use({
+    'rose-pine/neovim',
+    as = 'rose-pine',
+    tag = 'v0.1.0', -- Optional tag release
+    config = function()
+        vim.cmd('colorscheme rose-pine')
+    end
+})
+--[[
     use({ 'rose-pine/neovim', as = 'rose-pine',
     config = function() vim.cmd('colorscheme rose-pine')
     end
 })
+]]
 use {
     'glacambre/firenvim',
     run = function() vim.fn['firenvim#install'](0) end 
@@ -43,11 +54,13 @@ use {
 		}
 	}
 
+    --[[
     -- Markdown plugin for .md files
     use({
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
 })
+]]
 
 use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
