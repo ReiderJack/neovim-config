@@ -1,5 +1,21 @@
 require("jack.remap")
 
+-- Use system clipboard for all yank/paste operations
+vim.opt.clipboard = "unnamedplus"
+
+-- Force xclip as the provider (usually unnecessary but helps if auto-detect fails)
+vim.g.clipboard = {
+  name = "xclip",
+  copy = {
+    ["+"] = { "xclip", "-quiet", "-i", "-selection", "clipboard" },
+    ["*"] = { "xclip", "-quiet", "-i", "-selection", "primary" },
+  },
+  paste = {
+    ["+"] = { "xclip", "-o", "-selection", "clipboard" },
+    ["*"] = { "xclip", "-o", "-selection", "primary" },
+  },
+  cache_enabled = 1,
+}
 vim.opt.nu = true
 
 vim.opt.tabstop = 4
